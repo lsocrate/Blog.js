@@ -1,0 +1,21 @@
+{
+  "name": "Blog.js",
+  "version": "0.0.1",
+  "description": "A Node Blog engine",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lsocrate/tagon8-test.git"
+  },
+  "author": "Luiz Sócrate",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsocrate/tagon8-test/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}
