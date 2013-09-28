@@ -18,10 +18,12 @@
     "url": "https://github.com/lsocrate/tagon8-test/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "grunt-nodemon": "~0.1.1"
   },
   "dependencies": {
     "express": "~3.4.0",
-    "hjs": "*"
+    "hjs": "*",
+    "coffee-script": "~1.6.3"
   }
 }
