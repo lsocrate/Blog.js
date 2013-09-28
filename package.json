@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "express": "~3.4.0",
-    "hjs": "*"
+    "hjs": "*",
+    "mongoose": "~3.6.20"
   }
 }
