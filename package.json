@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "description": "A Node Blog engine",
   "main": "server.js",
+  "private": true,
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -17,5 +19,9 @@
   },
   "devDependencies": {
     "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "express": "~3.4.0",
+    "hjs": "*"
   }
 }
