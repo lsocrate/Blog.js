@@ -2,7 +2,7 @@
   "name": "Blog.js",
   "version": "0.0.1",
   "description": "A Node Blog engine",
-  "main": "server.js",
+  "main": "app.js",
   "private": true,
   "scripts": {
     "test": "test",
