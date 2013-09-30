@@ -1,6 +1,7 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var post = require('./routes/post');
 var http = require('http');
 var path = require('path');
 var app = express();
@@ -38,6 +39,8 @@ app.get('/signin', user.signin);
 app.post('/signin', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/signin'}));
 app.get('/signup', user.getSignup);
 app.post('/signup', user.postSignup);
+app.get('/post/create', auth.requiresLogin, post.createPostPage);
+app.post('/post/create', auth.requiresLogin, post.createPost);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

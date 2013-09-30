@@ -38,3 +38,7 @@ body.page-signup {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.content {
+  margin: 80px 40px 0;
+}
