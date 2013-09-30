@@ -3,6 +3,7 @@ var User = require('../models/user');
 exports.signin = function(req, res){
   res.render('user/signin', { title: 'Signin' });
 };
+
 exports.getSignup = function(req, res){
   res.render('user/signup', { title: 'Signup' });
 };
@@ -19,8 +20,12 @@ exports.postSignup = function(req, res){
   });
 
   newUser.save(function(err, user){
-    if (err) return; // @TODO
+    if (err) return;
 
-    res.render('user/signup', { title: 'Signup' });
+    req.login(user, function (err) {
+      if (err) return next(err);
+
+      return res.redirect('/');
+    });
   });
 };

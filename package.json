@@ -25,6 +25,8 @@
     "express": "~3.4.0",
     "hjs": "*",
     "mongoose": "~3.6.20",
-    "bcrypt": "~0.7.7"
+    "bcrypt": "~0.7.7",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6"
   }
 }
