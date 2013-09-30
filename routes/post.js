@@ -23,3 +23,11 @@ exports.createPost = function(req, res) {
     return res.redirect('/');
   });
 };
+
+exports.read = function(req, res){
+  Post.findOne({_id: req.params.id}).populate('author', 'name', 'User').exec(function (err, post) {
+    if (err) return;
+
+    res.render('post/read', {post: post});
+  });
+};

@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="content">
-      {{#posts}}
+      {{#post}}
       <article>
         <header>
           <h1 class="page-header"><a href="/post/{{id}}">{{title}}</a></h1>
@@ -38,7 +38,7 @@
           <small>Tags: {{#tags}}<a href="/tag/{{.}}">{{.}}</a>, {{/tags}}</small>
         </footer>
       </article>
-      {{/posts}}
+      {{/post}}
     </div>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   </body>
