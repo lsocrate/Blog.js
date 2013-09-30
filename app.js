@@ -3,11 +3,12 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var app = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/blog');
+var auth = require('./middlewares/authorization');
 
-var app = express();
+mongoose.connect('mongodb://localhost/blog');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
