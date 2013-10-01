@@ -41,9 +41,9 @@ app.get('/signup', controllerUser.getSignup);
 app.post('/signup', controllerUser.postSignup);
 app.get('/post/create', auth.requiresLogin, controllerPost.createPostPage);
 app.post('/post/create', auth.requiresLogin, controllerPost.createPost);
-app.get('/post/:id', controllerPost.read);
-app.get('/post/:id/edit', controllerPost.edit);
+app.get('/post/:id/edit', auth.requiresLogin, controllerPost.edit);
 app.post('/post/:id/edit', auth.requiresLogin, controllerPost.editPost);
+app.get('/post/:id', controllerPost.read);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
