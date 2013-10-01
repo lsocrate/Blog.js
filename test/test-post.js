@@ -157,4 +157,40 @@ suite('Post', function() {
         .expect(200, done);
     });
   });
+
+  suite('Read post', function (){
+    var postId;
+
+    suiteSetup(function (done) {
+      clearDb();
+      var UserModel = mongoose.model('User');
+      var User = new UserModel({
+        name : 'John Doe',
+        email : 'email@domain.com',
+        password : 'Password123*'
+      });
+
+      User.save(function (err, user) {
+        var PostModel = mongoose.model('Post');
+        var Post = new PostModel({
+          author: user._id,
+          title: 'Post title',
+          content: 'Post content',
+          tags: ['tag1', 'tag2', 'tag3']
+        });
+        Post.save(function (err, post) {
+          postId = post._id;
+          done();
+        });
+      });
+    });
+
+    test('Read post', function (done) {
+      request(app)
+        .get('/post/' + postId)
+        .expect('Content-Type', /html/)
+        .expect(/Post title/)
+        .expect(200, done);
+    });
+  });
 })
