@@ -4,18 +4,18 @@ var path = require('path');
 var app = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
-var auth = require('./middlewares/authorization');
-var controllerIndex = require('./controllers/index');
-var controllerUser = require('./controllers/user');
-var controllerPost = require('./controllers/post');
+var config = require(path.join(__dirname,'config','config'));
+var auth = require(path.join(__dirname,'app','middlewares','authorization'));
+var controllerIndex = require(path.join(__dirname, 'app','controllers','index'));
+var controllerUser = require(path.join(__dirname, 'app','controllers','user'));
+var controllerPost = require(path.join(__dirname, 'app','controllers','post'));
 
-mongoose.connect('mongodb://localhost/blog');
+mongoose.connect(config.mongoDB);
 
 // all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
+app.set('port', config.serverPort);
+app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'html');
-
 app.set('layout', 'layout')
 app.enable('view cache')
 app.engine('html', require('hogan-express'))
@@ -24,7 +24,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+app.use(express.cookieParser(config.cookieSecret));
 app.use(express.session());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,7 +36,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-require('./config/passport')(passport);
+require(path.join(__dirname, 'config','passport'))(passport);
 
 
 app.get('/', controllerIndex.index);
