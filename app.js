@@ -11,6 +11,7 @@ var controllerIndex = require(path.join(__dirname, 'app','controllers','index'))
 var controllerUser = require(path.join(__dirname, 'app','controllers','user'));
 var controllerPost = require(path.join(__dirname, 'app','controllers','post'));
 var controllerComment = require(path.join(__dirname, 'app','controllers','comment'));
+var controllerSearch = require(path.join(__dirname, 'app','controllers','search'));
 
 mongoose.connect(config.mongoDB);
 
@@ -55,6 +56,7 @@ app.post('/post/:id/edit', [auth.requiresLogin, defaultInfo], controllerPost.edi
 app.get('/post/:id', defaultInfo, controllerPost.read);
 app.post('/post/:id/comment', defaultInfo, controllerComment.create);
 app.get('/tag/:tag/posts', defaultInfo, controllerIndex.byTag);
+app.get('/search', defaultInfo, controllerSearch.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
