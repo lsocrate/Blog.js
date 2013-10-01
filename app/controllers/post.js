@@ -39,7 +39,7 @@ exports.createPost = function(req, res) {
 
 exports.read = function(req, res){
   Post.findOne({_id: req.params.id}).populate('author', 'name', 'User').exec(function (err, post) {
-    if (err) return;
+    if (err) return res.redirect('/404');
 
     post.comments.reverse();
     res.render('post/read', {post: post, commentCount: post.comments.length});
@@ -76,6 +76,16 @@ exports.editPost = function(req, res) {
   }
 
   Post.findByIdAndUpdate(postId, data, function (err, post) {
+    if (err) return;
+
+    return res.redirect('/');
+  });
+};
+
+exports.delete = function(req, res) {
+  var postId = req.params.id;
+
+  Post.remove({ _id: postId}, function (err) {
     if (err) return;
 
     return res.redirect('/');

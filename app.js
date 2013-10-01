@@ -54,6 +54,7 @@ app.get('/post/create', [auth.requiresLogin, defaultInfo], controllerPost.create
 app.post('/post/create', [auth.requiresLogin, defaultInfo], controllerPost.createPost);
 app.get('/post/:id/edit', [auth.requiresLogin, defaultInfo], controllerPost.edit);
 app.post('/post/:id/edit', [auth.requiresLogin, defaultInfo], controllerPost.editPost);
+app.get('/post/:id/delete', [auth.requiresLogin, defaultInfo], controllerPost.delete);
 app.get('/post/:id', defaultInfo, controllerPost.read);
 app.post('/post/:id/comment', defaultInfo, controllerComment.create);
 app.get('/tag/:tag/posts', defaultInfo, controllerIndex.byTag);
