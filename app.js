@@ -6,6 +6,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var config = require(path.join(__dirname,'config','config'));
 var auth = require(path.join(__dirname,'app','middlewares','authorization'));
+var defaultInfo = require(path.join(__dirname,'app','middlewares','defaultInfo'));
 var controllerIndex = require(path.join(__dirname, 'app','controllers','index'));
 var controllerUser = require(path.join(__dirname, 'app','controllers','user'));
 var controllerPost = require(path.join(__dirname, 'app','controllers','post'));
@@ -40,19 +41,19 @@ if ('development' == app.get('env')) {
 require(path.join(__dirname, 'config','passport'))(passport);
 
 
-app.get('/', controllerIndex.index);
-app.get('/signin', controllerUser.signin);
-app.post('/signin', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/signin'}));
-app.get('/signup', controllerUser.getSignup);
-app.post('/signup', controllerUser.postSignup);
-app.get('/changepassword', auth.requiresLogin, controllerUser.getChangePassword);
-app.post('/changepassword', auth.requiresLogin, controllerUser.postChangePassword);
-app.get('/post/create', auth.requiresLogin, controllerPost.createPostPage);
-app.post('/post/create', auth.requiresLogin, controllerPost.createPost);
-app.get('/post/:id/edit', auth.requiresLogin, controllerPost.edit);
-app.post('/post/:id/edit', auth.requiresLogin, controllerPost.editPost);
-app.get('/post/:id', controllerPost.read);
-app.post('/post/:id/comment', controllerComment.create);
+app.get('/', defaultInfo, controllerIndex.index);
+app.get('/signin', defaultInfo, controllerUser.signin);
+app.post('/signin', defaultInfo, passport.authenticate('local', { successRedirect: '/', failureRedirect: '/signin'}));
+app.get('/signup', defaultInfo, controllerUser.getSignup);
+app.post('/signup', defaultInfo, controllerUser.postSignup);
+app.get('/changepassword', [auth.requiresLogin, defaultInfo], controllerUser.getChangePassword);
+app.post('/changepassword', [auth.requiresLogin, defaultInfo], controllerUser.postChangePassword);
+app.get('/post/create', [auth.requiresLogin, defaultInfo], controllerPost.createPostPage);
+app.post('/post/create', [auth.requiresLogin, defaultInfo], controllerPost.createPost);
+app.get('/post/:id/edit', [auth.requiresLogin, defaultInfo], controllerPost.edit);
+app.post('/post/:id/edit', [auth.requiresLogin, defaultInfo], controllerPost.editPost);
+app.get('/post/:id', defaultInfo, controllerPost.read);
+app.post('/post/:id/comment', defaultInfo, controllerComment.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
