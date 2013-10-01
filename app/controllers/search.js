@@ -21,7 +21,8 @@ exports.index = function(req, res){
   Post.find(filter).populate('author', 'name', 'User').sort({lastTouched: -1}).exec(function (err, posts) {
     if (err) return;
 
-    res.render('index', {posts: posts, isViewerLogged: !!req.user});
+    var noPosts = (posts.length == 0);
+    res.render('index', {posts: posts, isViewerLogged: !!req.user, noPosts: noPosts});
   });
 };
 

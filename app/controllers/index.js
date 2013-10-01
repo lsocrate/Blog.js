@@ -14,6 +14,7 @@ exports.byTag = function(req, res){
     if (err) return;
 
     var isViewerLogged = !!req.user;
-    res.render('index', {posts: posts, isViewerLogged: isViewerLogged});
+    var noPosts = (posts.length == 0);
+    res.render('index', {posts: posts, isViewerLogged: isViewerLogged, noPosts: noPosts});
   });
 };
