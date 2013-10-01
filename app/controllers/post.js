@@ -39,7 +39,7 @@ exports.createPost = function(req, res) {
 
 exports.read = function(req, res){
   Post.findOne({_id: req.params.id}).populate('author', 'name', 'User').exec(function (err, post) {
-    if (err) return res.redirect('/404');
+    if (err) return;
 
     post.comments.reverse();
     res.render('post/read', {post: post, commentCount: post.comments.length});

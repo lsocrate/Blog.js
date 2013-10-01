@@ -17,7 +17,15 @@
   {{#post.comments}}
     <article class="post-comment well">
       <header class="post-comment-header">
-        <h4>Comment by <strong>{{author}}</strong> on <em>{{posted_in}}</em></h4>
+        <h4>Comment by <strong>{{author}}</strong> on <em>{{posted_in}}</em>
+        {{#isLogged}}
+        <a href="/comment/{{id}}/delete">
+          <button type="button" class="btn btn-danger btn-xs">
+            <span class="glyphicon glyphicon-trash"></span> Delete comment
+          </button>
+        </a>
+        {{/isLogged}}
+        </h4>
       </header>
       {{content}}
     </article>
