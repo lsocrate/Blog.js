@@ -5,6 +5,7 @@ exports.index = function(req, res){
   Post.find().populate('author', 'name', 'User').exec(function (err, posts) {
     if (err) return;
 
-    res.render('index', {posts: posts});
+    var isViewerLogged = !!req.user;
+    res.render('index', {posts: posts, isViewerLogged: isViewerLogged});
   });
 };

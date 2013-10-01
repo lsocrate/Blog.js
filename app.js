@@ -1,13 +1,13 @@
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
-var post = require('./routes/post');
 var http = require('http');
 var path = require('path');
 var app = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
 var auth = require('./middlewares/authorization');
+var controllerIndex = require('./controllers/index');
+var controllerUser = require('./controllers/user');
+var controllerPost = require('./controllers/post');
 
 mongoose.connect('mongodb://localhost/blog');
 
@@ -34,14 +34,16 @@ if ('development' == app.get('env')) {
 require('./config/passport')(passport);
 
 
-app.get('/', routes.index);
-app.get('/signin', user.signin);
+app.get('/', controllerIndex.index);
+app.get('/signin', controllerUser.signin);
 app.post('/signin', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/signin'}));
-app.get('/signup', user.getSignup);
-app.post('/signup', user.postSignup);
-app.get('/post/create', auth.requiresLogin, post.createPostPage);
-app.post('/post/create', auth.requiresLogin, post.createPost);
-app.get('/post/:id', post.read);
+app.get('/signup', controllerUser.getSignup);
+app.post('/signup', controllerUser.postSignup);
+app.get('/post/create', auth.requiresLogin, controllerPost.createPostPage);
+app.post('/post/create', auth.requiresLogin, controllerPost.createPost);
+app.get('/post/:id', controllerPost.read);
+app.get('/post/:id/edit', controllerPost.edit);
+app.post('/post/:id/edit', auth.requiresLogin, controllerPost.editPost);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

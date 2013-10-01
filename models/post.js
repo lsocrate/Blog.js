@@ -8,10 +8,24 @@ var PostSchema = new Schema({
   content: String,
   comments: [{ body: String, date: Date }],
   tags: [String],
-  created: { type: Date, default: Date.now }
+  lastTouched: { type: Date, default: Date.now }
 });
+
+PostSchema.pre('save', function (next) {
+  this.lastTouched = new Date;
+  next();
+});
+
 PostSchema.virtual('posted_in').get(function () {
-  return sprintf('%02d/%02d/%04d %02d:%02d', this.created.getDate(), this.created.getMonth(), this.created.getYear() + 1900, this.created.getHours(), this.created.getMinutes());
+  return sprintf('%02d/%02d/%04d %02d:%02d', this.lastTouched.getDate(), this.lastTouched.getMonth(), this.lastTouched.getYear() + 1900, this.lastTouched.getHours(), this.lastTouched.getMinutes());
+});
+
+PostSchema.virtual('tagString').get(function () {
+  return this.tags.join(', ');
+}).set(function (tagString) {
+  this.tags = tagString.split(',').map(function (tag) {
+    return tag.trim();
+  });
 });
 
 module.exports = mongoose.model('Post', PostSchema);

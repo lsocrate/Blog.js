@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Awesome Blog!</title>
+    <title>Edit Post</title>
     <link rel='stylesheet' href='/stylesheets/style.css'>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
@@ -25,29 +25,24 @@
       </div>
     </div>
     <div class="content">
-      {{#posts}}
-      <article>
-        <header>
-          <h1 class="page-header"><a href="/post/{{id}}">{{title}}</a></h1>
-          <h2 class="post-title">
-            <small>Posted by <a href="/author/{{author.id}}">{{author.name}}</a> on {{posted_in}}</small>
-            {{#isViewerLogged}}
-              <a href="/post/{{id}}/edit">
-                <button type="button" class="btn btn-primary btn-xs">
-                  <span class="glyphicon glyphicon-pencil"></span> Edit post
-                </button>
-              </a>
-            {{/isViewerLogged}}
-          </h2>
-        </header>
-        <div class="bodytext">
-          {{content}}
+      {{#post}}
+      <form class="form-createpost" method="post" role="form">
+        <h2 class="form-createpost-heading">New Post</h2>
+        <div class="form-group">
+          <label for="post-title">Post title</label>
+          <input type="text" name="title" id="post-title" class="form-control" placeholder="Post title" required value="{{title}}">
         </div>
-        <footer>
-          <small>Tags: {{#tags}}<a href="/tag/{{.}}">{{.}}</a>, {{/tags}}</small>
-        </footer>
-      </article>
-      {{/posts}}
+        <div class="form-group">
+          <label for="post-content">Post content</label>
+          <textarea name="content" id="post-content" class="form-control" rows="10" required>{{content}}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="post-tags">Post tags</label>
+          <input type="text" name="tags" id="post-tags" class="form-control" placeholder="Comma separated tags like: Walter, Breaking Bad, Cooking meth on New Mexico" value="{{tagString}}">
+        </div>
+        <button class="btn btn-primary" type="submit">Edit!</button>
+      </form>
+      {{/post}}
     </div>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   </body>
