@@ -54,6 +54,7 @@ app.get('/post/:id/edit', [auth.requiresLogin, defaultInfo], controllerPost.edit
 app.post('/post/:id/edit', [auth.requiresLogin, defaultInfo], controllerPost.editPost);
 app.get('/post/:id', defaultInfo, controllerPost.read);
 app.post('/post/:id/comment', defaultInfo, controllerComment.create);
+app.get('/tag/:tag/posts', defaultInfo, controllerIndex.byTag);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
