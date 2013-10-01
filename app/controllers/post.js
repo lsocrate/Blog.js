@@ -7,9 +7,16 @@ exports.createPostPage = function(req, res) {
 exports.createPost = function(req, res) {
   var title = req.body.title;
   var content = req.body.content;
-  var tagsString = req.body.tags;
-  var tags = tagsString.split(',').map(function(tag){return tag.trim();});
+  var tagString = req.body.tags;
+  var tags = tagString.split(',').map(function(tag){return tag.trim();});
   var postId = req.params.id;
+
+  if (!title) {
+    return res.render('post/create', { alert: {message: 'Fill the Post title'}});
+  }
+  if (!content) {
+    return res.render('post/create', { alert: {message: 'Fill the Post content'}});
+  }
 
   var newPost = new Post({
     title: title,
@@ -45,13 +52,13 @@ exports.edit = function(req, res){
 exports.editPost = function(req, res) {
   var title = req.body.title;
   var content = req.body.content;
-  var tagsString = req.body.tags;
+  var tagString = req.body.tags;
   var postId = req.params.id;
   var data = {
     title: title,
     content: content,
     author: req.user._id,
-    tagString: tagsString,
+    tagString: tagString,
     lastTouched: new Date
   };
 

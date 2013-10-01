@@ -39,8 +39,7 @@ suite('Post', function() {
         .get('/post/create')
         .expect('Content-Type', /html/)
         .expect(200, done);
-    })
-
+    });
     test('Create valid post', function (done) {
       authUser
         .post('/post/create')
@@ -50,6 +49,26 @@ suite('Post', function() {
         .expect('Content-Type', /plain/)
         .expect(/Redirecting to \/$/)
         .expect(302, done);
-    })
+    });
+    test('Create invalid post, missing title', function (done) {
+      authUser
+        .post('/post/create')
+        .field('title', '')
+        .field('content', 'Post content')
+        .field('tags', "Post tags, and other tag")
+        .expect('Content-Type', /html/)
+        .expect(/Fill the Post title/)
+        .expect(200, done);
+    });
+    test('Create invalid post, missing content', function (done) {
+      authUser
+        .post('/post/create')
+        .field('title', 'Post title')
+        .field('content', '')
+        .field('tags', "Post tags, and other tag")
+        .expect('Content-Type', /html/)
+        .expect(/Fill the Post content/)
+        .expect(200, done);
+    });
   });
 })
