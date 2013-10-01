@@ -40,5 +40,16 @@ suite('Post', function() {
         .expect('Content-Type', /html/)
         .expect(200, done);
     })
+
+    test('Create valid post', function (done) {
+      authUser
+        .post('/post/create')
+        .field('title', 'Post title')
+        .field('content', 'Post content')
+        .field('tags', "Post tags, and other tag")
+        .expect('Content-Type', /plain/)
+        .expect(/Redirecting to \/$/)
+        .expect(302, done);
+    })
   });
 })
