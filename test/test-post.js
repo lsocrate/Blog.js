@@ -40,6 +40,13 @@ suite('Post', function() {
         .expect('Content-Type', /html/)
         .expect(200, done);
     });
+    test('Post creation does not load for authenticated user', function (done) {
+      request(app)
+        .get('/post/create')
+        .expect('Content-Type', /plain/)
+        .expect(/Redirecting to \/signin$/)
+        .expect(302, done);
+    });
     test('Create valid post', function (done) {
       authUser
         .post('/post/create')
