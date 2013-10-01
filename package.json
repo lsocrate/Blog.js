@@ -1,12 +1,12 @@
 {
   "name": "Blog.js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Node Blog engine",
   "main": "app.js",
   "private": true,
   "scripts": {
     "test": "test",
-    "start": "node app.js"
+    "start": "./node_modules/.bin/nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
     "sprintf-js": "0.0.7",
-    "hogan-express": "~0.4.1"
+    "hogan-express": "~0.4.1",
+    "nodemon": "~0.7.10"
   }
 }
