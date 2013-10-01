@@ -1,7 +1,7 @@
 var Post = require('../models/post');
 
 exports.createPostPage = function(req, res) {
-  res.render('post/create');
+  res.render('post/edit', {post:{}});
 };
 
 exports.createPost = function(req, res) {
