@@ -103,7 +103,7 @@ suite('Index', function() {
           .field('email', 'email@domain.com')
           .field('password', 'Password123*')
           .expect('Content-Type', /plain/)
-          .expect(/Redirecting to \//)
+          .expect(/Redirecting to \/$/)
           .expect(302, done);
       });
       test('Invalid signin', function (done) {
