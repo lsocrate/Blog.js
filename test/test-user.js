@@ -3,6 +3,7 @@ var path = require('path');
 var request = require('supertest');
 var app = require(path.join(__dirname,'..','app'));
 var clearDb = require(path.join(__dirname,'helper')).clearDb;
+var mongoose = require('mongoose');
 
 suite('Index', function() {
   setup(function(){
@@ -73,13 +74,18 @@ suite('Index', function() {
     });
 
     suite('Signin', function () {
-      setup(function (){
+      suiteSetup(function (done){
         clearDb();
-        request(app)
-          .post('/signup')
-          .field('name', 'John Doe')
-          .field('email', 'email@domain.com')
-          .field('password', 'Password123*');
+        var UserModel = mongoose.model('User');
+        var User = new UserModel({
+          name : 'John Doe',
+          email : 'email@domain.com',
+          password : 'Password123*'
+        });
+        User.save(function (err, user) {
+          console.log('YEY!');
+          done();
+        })
       });
 
       test('Valid signin', function (done) {
@@ -88,6 +94,16 @@ suite('Index', function() {
           .field('email', 'email@domain.com')
           .field('password', 'Password123*')
           .expect('Content-Type', /plain/)
+          .expect(/Redirecting to \//)
+          .expect(302, done);
+      });
+      test('Invalid signin', function (done) {
+        request(app)
+          .post('/signin')
+          .field('email', 'errado@domain.com')
+          .field('password', 'errado')
+          .expect('Content-Type', /plain/)
+          .expect(/Redirecting to \/signin/)
           .expect(302, done);
       });
     });
