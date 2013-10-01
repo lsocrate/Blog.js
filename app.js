@@ -4,7 +4,8 @@ var path = require('path');
 var app = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
-var config = require(path.join(__dirname,'config','config'));
+var env = process.env.NODE_ENV || 'development';
+var config = require(path.join(__dirname,'config','config'))[env];
 var auth = require(path.join(__dirname,'app','middlewares','authorization'));
 var defaultInfo = require(path.join(__dirname,'app','middlewares','defaultInfo'));
 var controllerIndex = require(path.join(__dirname, 'app','controllers','index'));
@@ -61,3 +62,5 @@ app.get('/search', defaultInfo, controllerSearch.index);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+exports = module.exports = app
