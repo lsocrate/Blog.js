@@ -9,6 +9,7 @@ var auth = require(path.join(__dirname,'app','middlewares','authorization'));
 var controllerIndex = require(path.join(__dirname, 'app','controllers','index'));
 var controllerUser = require(path.join(__dirname, 'app','controllers','user'));
 var controllerPost = require(path.join(__dirname, 'app','controllers','post'));
+var controllerComment = require(path.join(__dirname, 'app','controllers','comment'));
 
 mongoose.connect(config.mongoDB);
 
@@ -49,6 +50,7 @@ app.post('/post/create', auth.requiresLogin, controllerPost.createPost);
 app.get('/post/:id/edit', auth.requiresLogin, controllerPost.edit);
 app.post('/post/:id/edit', auth.requiresLogin, controllerPost.editPost);
 app.get('/post/:id', controllerPost.read);
+app.post('/post/:id/comment', controllerComment.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
