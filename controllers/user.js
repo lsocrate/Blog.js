@@ -1,11 +1,11 @@
 var User = require('../models/user');
 
 exports.signin = function(req, res){
-  res.render('user/signin', { title: 'Signin' });
+  res.render('user/signin', { title: 'Signin', thisPage: 'only-a-form'});
 };
 
 exports.getSignup = function(req, res){
-  res.render('user/signup', { title: 'Signup' });
+  res.render('user/signup', { title: 'Signup', thisPage: 'only-a-form'});
 };
 
 exports.postSignup = function(req, res){

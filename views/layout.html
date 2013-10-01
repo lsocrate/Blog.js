@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Awesome Blog!</title>
+    <title>Layout!</title>
     <link rel='stylesheet' href='/stylesheets/style.css'>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
   </head>
-  <body>
+  <body class="{{thisPage}}">
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -25,20 +25,7 @@
       </div>
     </div>
     <div class="content">
-      {{#post}}
-      <article>
-        <header>
-          <h1 class="page-header"><a href="/post/{{id}}">{{title}}</a></h1>
-          <h2 class="post-title"><small>Posted by <a href="/author/{{author.id}}">{{author.name}}</a> on {{posted_in}}</small></h2>
-        </header>
-        <div class="bodytext">
-          {{content}}
-        </div>
-        <footer>
-          <small>Tags: {{#tags}}<a href="/tag/{{.}}">{{.}}</a>, {{/tags}}</small>
-        </footer>
-      </article>
-      {{/post}}
+    {{{ yield }}}
     </div>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   </body>
