@@ -1,6 +1,7 @@
 {{#post}}
   <form class="form-createpost" method="post" role="form">
     <h2 class="form-createpost-heading">New Post</h2>
+    {{#alert}}<div class="alert alert-danger">{{message}}</div>{{/alert}}
     <div class="form-group">
       <label for="post-title">Post title</label>
       <input type="text" name="title" id="post-title" class="form-control" placeholder="Post title" required value="{{title}}">

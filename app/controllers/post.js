@@ -5,17 +5,22 @@ exports.createPostPage = function(req, res) {
 };
 
 exports.createPost = function(req, res) {
-  var title = req.body.title;
-  var content = req.body.content;
-  var tagString = req.body.tags;
+  var title = req.body.title.trim();
+  var content = req.body.content.trim();
+  var tagString = req.body.tags.trim();
   var tags = tagString.split(',').map(function(tag){return tag.trim();});
   var postId = req.params.id;
 
+  var post = {
+    title: title,
+    content: content,
+    tagString: tagString
+  };
   if (!title) {
-    return res.render('post/create', { alert: {message: 'Fill the Post title'}});
+    return res.render('post/edit', { alert: {message: 'Fill the Post title'}, post: post});
   }
   if (!content) {
-    return res.render('post/create', { alert: {message: 'Fill the Post content'}});
+    return res.render('post/edit', { alert: {message: 'Fill the Post content'}, post: post});
   }
 
   var newPost = new Post({
