@@ -1,7 +1,8 @@
 <form class="form-signin" method="post">
   <h2 class="form-signin-heading">Please sign up</h2>
-  <input type="text" name="name" class="form-control" placeholder="Your name" autofocus required>
-  <input type="email" name="email" class="form-control" placeholder="Email address" required>
+  {{#alert}}<div class="alert alert-danger">{{message}}</div>{{/alert}}
+  <input type="text" name="name" class="form-control" placeholder="Your name" autofocus  value="{{name}}">
+  <input type="email" name="email" class="form-control" placeholder="Email address" required value="{{email}}">
   <input type="password" name="password" class="form-control" placeholder="Password" required>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
 </form>

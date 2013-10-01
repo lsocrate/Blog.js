@@ -13,6 +13,17 @@ exports.postSignup = function(req, res){
   var email = req.body.email;
   var password = req.body.password;
 
+  if (!name) {
+    return res.render('user/signup', { title: 'Signup', thisPage: 'only-a-form', alert: {message: 'Please fill your name'}, email: email});
+  }
+  if (!email) {
+    return res.render('user/signup', { title: 'Signup', thisPage: 'only-a-form', alert: {message: 'Please fill your email'}, name: name});
+  }
+  if (!password) {
+    return res.render('user/signup', { title: 'Signup', thisPage: 'only-a-form', alert: {message: 'Please fill your password'}, name: name, email: email});
+  }
+
+
   var newUser = new User({
     name: name,
     email: email,

@@ -40,6 +40,36 @@ suite('Index', function() {
           .expect('Content-Type', /plain/)
           .expect(302, done);
       });
+      test('Invalid Signup, missing name', function (done) {
+        request(app)
+          .post('/signup')
+          .field('name', '')
+          .field('email', 'email@domain.com')
+          .field('password', 'Password123*')
+          .expect('Content-Type', /html/)
+          .expect(/fill your name/)
+          .expect(200, done);
+      });
+      test('Invalid Signup, missing email', function (done) {
+        request(app)
+          .post('/signup')
+          .field('name', 'John Doe')
+          .field('email', '')
+          .field('password', 'Password123*')
+          .expect('Content-Type', /html/)
+          .expect(/fill your email/)
+          .expect(200, done);
+      });
+      test('Invalid Signup, missing password', function (done) {
+        request(app)
+          .post('/signup')
+          .field('name', 'John Doe')
+          .field('email', 'email@domain.com')
+          .field('password', '')
+          .expect('Content-Type', /html/)
+          .expect(/fill your password/)
+          .expect(200, done);
+      });
     });
   });
 })
