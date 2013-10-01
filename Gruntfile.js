@@ -5,7 +5,7 @@ module.exports = function (grunt) {
       dev: {
         options: {
           file: 'app.js',
-          ignoredFiles: ['node_modules/**', '.git/**']
+          ignoredFiles: ['node_modules/**', '.git/**', 'test/**']
         }
       }
     }
