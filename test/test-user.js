@@ -76,36 +76,45 @@ suite('Index', function() {
 
 
   suite('Signin', function () {
-    suiteSetup(function (done){
-      clearDb();
-      var UserModel = mongoose.model('User');
-      var User = new UserModel({
-        name : 'John Doe',
-        email : 'email@domain.com',
-        password : 'Password123*'
-      });
-      User.save(function (err, user) {
-        done();
-      })
+    test('Signin page loads', function (done) {
+      request(app)
+        .get('/signin')
+        .expect('Content-Type', /html/)
+        .expect(200, done);
     });
 
-    test('Valid signin', function (done) {
-      request(app)
-        .post('/signin')
-        .field('email', 'email@domain.com')
-        .field('password', 'Password123*')
-        .expect('Content-Type', /plain/)
-        .expect(/Redirecting to \//)
-        .expect(302, done);
-    });
-    test('Invalid signin', function (done) {
-      request(app)
-        .post('/signin')
-        .field('email', 'errado@domain.com')
-        .field('password', 'errado')
-        .expect('Content-Type', /plain/)
-        .expect(/Redirecting to \/signin/)
-        .expect(302, done);
+    suite('Signin authentication', function () {
+      suiteSetup(function (done){
+        clearDb();
+        var UserModel = mongoose.model('User');
+        var User = new UserModel({
+          name : 'John Doe',
+          email : 'email@domain.com',
+          password : 'Password123*'
+        });
+        User.save(function (err, user) {
+          done();
+        })
+      });
+
+      test('Valid signin', function (done) {
+        request(app)
+          .post('/signin')
+          .field('email', 'email@domain.com')
+          .field('password', 'Password123*')
+          .expect('Content-Type', /plain/)
+          .expect(/Redirecting to \//)
+          .expect(302, done);
+      });
+      test('Invalid signin', function (done) {
+        request(app)
+          .post('/signin')
+          .field('email', 'errado@domain.com')
+          .field('password', 'errado')
+          .expect('Content-Type', /plain/)
+          .expect(/Redirecting to \/signin/)
+          .expect(302, done);
+      });
     });
   });
 })
