@@ -5,6 +5,10 @@ exports.create = function(req, res) {
   var content = req.body.content;
   var postId = req.params.id;
 
+  if (!author || !content) {
+    return res.redirect('/post/' + postId);
+  }
+
   Post.findOne({_id: req.params.id}).exec(function (err, post) {
     if (err) return;
 
