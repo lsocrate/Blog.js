@@ -71,5 +71,25 @@ suite('Index', function() {
           .expect(200, done);
       });
     });
+
+    suite('Signin', function () {
+      setup(function (){
+        clearDb();
+        request(app)
+          .post('/signup')
+          .field('name', 'John Doe')
+          .field('email', 'email@domain.com')
+          .field('password', 'Password123*');
+      });
+
+      test('Valid signin', function (done) {
+        request(app)
+          .post('/signin')
+          .field('email', 'email@domain.com')
+          .field('password', 'Password123*')
+          .expect('Content-Type', /plain/)
+          .expect(302, done);
+      });
+    });
   });
 })
