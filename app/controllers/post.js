@@ -29,7 +29,7 @@ exports.read = function(req, res){
   Post.findOne({_id: req.params.id}).populate('author', 'name', 'User').exec(function (err, post) {
     if (err) return;
 
-    post.comments.sort({date: 1});
+    post.comments.reverse();
     res.render('post/read', {post: post, commentCount: post.comments.length});
   });
 };
