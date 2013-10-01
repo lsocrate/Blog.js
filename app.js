@@ -45,6 +45,8 @@ app.get('/signin', controllerUser.signin);
 app.post('/signin', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/signin'}));
 app.get('/signup', controllerUser.getSignup);
 app.post('/signup', controllerUser.postSignup);
+app.get('/changepassword', auth.requiresLogin, controllerUser.getChangePassword);
+app.post('/changepassword', auth.requiresLogin, controllerUser.postChangePassword);
 app.get('/post/create', auth.requiresLogin, controllerPost.createPostPage);
 app.post('/post/create', auth.requiresLogin, controllerPost.createPost);
 app.get('/post/:id/edit', auth.requiresLogin, controllerPost.edit);

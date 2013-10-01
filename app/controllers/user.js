@@ -29,3 +29,22 @@ exports.postSignup = function(req, res){
     });
   });
 };
+
+exports.getChangePassword = function(req, res){
+  res.render('user/changepassword', { title: 'Signup', thisPage: 'only-a-form'});
+};
+
+exports.postChangePassword = function(req, res){
+  var password = req.body.password;
+
+  User.findOne({_id: req.user._id}).exec(function (err, user) {
+    if (err) return;
+
+    user.password = password;
+    user.save(function (err, user) {
+      if (err) return;
+
+      return res.redirect('/');
+    });
+  });
+};
