@@ -55,10 +55,11 @@ exports.edit = function(req, res){
 };
 
 exports.editPost = function(req, res) {
-  var title = req.body.title;
-  var content = req.body.content;
-  var tagString = req.body.tags;
+  var title = req.body.title.trim();
+  var content = req.body.content.trim();
+  var tagString = req.body.tags.trim();
   var postId = req.params.id;
+
   var data = {
     title: title,
     content: content,
@@ -66,6 +67,13 @@ exports.editPost = function(req, res) {
     tagString: tagString,
     lastTouched: new Date
   };
+
+  if (!title) {
+    return res.render('post/edit', { alert: {message: 'Fill the Post title'}, post: data});
+  }
+  if (!content) {
+    return res.render('post/edit', { alert: {message: 'Fill the Post content'}, post: data});
+  }
 
   Post.findByIdAndUpdate(postId, data, function (err, post) {
     if (err) return;
