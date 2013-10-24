@@ -20,9 +20,9 @@ mongoose.connect(config.mongoDB);
 app.set('port', config.serverPort);
 app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'html');
-app.set('layout', 'layout')
-app.enable('view cache')
-app.engine('html', require('hogan-express'))
+app.set('layout', 'layout');
+app.enable('view cache');
+app.engine('html', require('hogan-express'));
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -36,7 +36,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
+if ('development' === app.get('env')) {
   app.use(express.errorHandler());
 }
 
@@ -67,4 +67,4 @@ http.createServer(app).listen(app.get('port'), function(){
 
 
 // EXPORT FOR TESTS
-exports = module.exports = app
+exports = module.exports = app;
